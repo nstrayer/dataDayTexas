@@ -1,0 +1,32 @@
+ÿMaking Magic With Shiny and Keras
+	What it is I have done
+		Made a shiny app for gathering data for modeling
+		Trained a deep neural network on gathered data
+		Built another shiny app to use that model
+	Why I did it
+		Want to show how shiny/ application development can fit into all aspects of the datascience process
+			Shiny app was used at the first stage to gather data
+				This takes statisticians back to what they are good at: setting up data collection.
+			Visualization was used both in the data gathering step and modeling step
+				For data gathering it served as quality control
+				For modeling it served to make initial assessments of model feasability
+			Shiny app was used again to demo or deploy model
+	How I did it
+		Shiny
+			Framework that allows rapid prototyping of apps onto mobile devices
+			Own instance of shinyserver
+				Vastly speeds up the development process over sending to shinyapps.io
+		Shinysense
+			My own library for giving Shiny apps the ability to 'sense' the world around them
+			In this case I used the function movr
+				Movr places a button in your app that lets you gather data from the accelerometer in your phone or tilt from your laptop
+			Other functions could be combined into more complex applications.
+				seer would be able to do photo recognition (bandwidth issues may be difficult)
+				You could train a gesture recognition system for adding data to an app with drawr or movr...
+		Keras
+			Deep learning framework that makes it terrifyingly easy to build deep neural networks
+			Used 1-d convolutional neural network
+				These convolutions turn something that is very high dimensional and reduces the dimensions greatly allowing for effective modeling
+				Convolutional filters act as feature detectors finding things like an upward flick
+				Could have used an RNN but sensor data in this context (short single class instances) lend themselves much better to CNNs
+					Trained way way faster(10x) allowing for more hyperparameter experimentation.

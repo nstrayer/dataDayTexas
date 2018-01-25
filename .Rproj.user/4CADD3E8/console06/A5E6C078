@@ -1,0 +1,15 @@
+[K]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ ls
+total 32K
+drwxr-xr-x  4 nick nick 4.0K Jan 25 14:03 [0m[01;34m.[0m
+drwx------ 17 nick nick 4.0K Jan 25 13:15 [01;34m..[0m
+-rw-r--r--  1 nick nick  205 Jan 25 13:42 dataDaysTexas.Rproj
+drwxr-xr-x  3 nick nick 4.0K Jan 25 14:03 [01;34mlibs[0m
+-rw-r--r--  1 nick nick 2.0K Jan 24 17:23 outline
+-rw-r--r--  1 nick nick 2.9K Jan 25 14:03 presentation.html
+-rw-r--r--  1 nick nick 1.6K Jan 25 14:03 presentation.Rmd
+drwxr-xr-x  4 nick nick 4.0K Jan 24 16:46 [01;34m.Rproj.user[0m
+]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ git init
+Initialized empty Git repository in /media/nick/ssd/dataDaysTexas/.git/
+]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ ^Vgit remote add origin git@github.com:nstrayer/da taDayTexas.git[A]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ [K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgit remote add origin git@github.com:nstrayer/data DayTexas.git
+]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ lgit "first bit of presentation is in"

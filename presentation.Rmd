@@ -1,0 +1,89 @@
+---
+title: "Making Magic with Keras and Shiny"
+subtitle: "An exploration of Shiny's position in the data science pipeline"
+author: "Nick Strayer"
+date: "2018/01/22"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+class: middle
+
+# Outline
+
+Three sections
+
+1. What...
+2. Why...
+3. How...
+
+... I did
+
+---
+class: center, middle
+
+# What?
+
+---
+
+# Made a shiny app for casting spells
+
+---
+
+# Three main steps:
+
+1. Shiny app for gathering data
+2. Modeling data with Keras
+3. Shiny app for presenting data
+
+---
+
+# Demo
+
+---
+class: center, middle
+
+# Why?
+
+---
+
+I want to show Shiny can fit into the datascience workflow from the begining to the end. 
+
+Traditionally shiny has been used to show off results afterwards, but that's missing a huge portion of its potential.
+
+---
+
+# Shiny for gathering data
+
+Who is better at knowing how they need data than the ones who are going to be using it?
+
+Many people like statisticians are given entire courses on how to set up things like clinical trials, but datascience doesn't always work like that.
+
+---
+
+# Shiny for presenting models
+
+This is the traditional way shiny is used, but there's a reason for that. It's great. 
+
+Instead of having to get fancy with learning how to port tensorflow models to Swift or Java you can just throw a predict function inside of a simple app. 
+
+How well can this scale?
+
+---
+class: center, middle
+
+# How?
+
+---
+
+
+
