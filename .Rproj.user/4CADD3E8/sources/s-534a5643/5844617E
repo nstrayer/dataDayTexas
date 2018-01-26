@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1516981904631.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "5844617E",
+    "lastKnownWriteTime" : 1515787948,
+    "last_content_update" : 1515787948,
+    "path" : "~/fast_drive/shinyserver/apps/spell_casts/fit_model.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "70,4",
+        "scrollLine" : "60"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

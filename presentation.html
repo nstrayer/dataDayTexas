@@ -88,6 +88,182 @@ class: center, middle
 # How?
 
 ---
+class: center, middle
+
+# Data gathering app
+
+
+---
+
+# Shiny
+
+&gt; Shiny is an R package that makes it easy to build interactive web apps straight from R.
+
+[RStudio](https://shiny.rstudio.com/)
+---
+
+# App needs
+
+- Gather data from accelerometer
+- Save data somewhere I could use it
+- Visualize results so that I could make sure I wasn't recording bad data.
+
+---
+
+#Gathering Data from accelerometer
+
+Used my package `shinysense`. 
+
+Binds to the `devicemotion` api in javascript to pull in motion data.
+
+Needs to be noramlized for different devices.
+
+---
+# Saving the data
+
+Two options: 
+1. Use shinyapps.io and do a dropbox or similar upload
+2. Just host the app from my own server
+    - This was easier.
+    
+Luckily the RStudio Server makes this crazy easy.
+
+---
+# Visualizing data 
+
+Not that hard as `shinysense::movr` returns an observable that can be used like any other shiny object.
+
+Just used ggplot2 to visualize raw data faceting by recording.
+
+Added a delete button if bad data was detected.
+
+---
+class: center, middle
+
+# Data exploration/ Visualization
+
+---
+# Getting data all in
+
+By saving all of the data to the hope repo as unique id `.csv`s all I have to do is read them in with a single `purrr` line. 
+
+
+```r
+all_files &lt;- list.files('gather_data')
+csv_names &lt;- all_files[grepl('.csv', all_files)]
+
+# load all data into a dataframe
+data &lt;- csv_names %&gt;% 
+  map_df(read_csv)
+```
+
+
+---
+# Visualizing all data for trends
+
+
+
+
+```r
+ggplot(data, aes(x = time, y = accel, color = direction, group = recording_id)) +
+  geom_line(alpha = 0.15) +
+  facet_wrap(~label) +
+  theme_void() +
+  guides(color = FALSE) +
+  theme(strip.text = element_text(family = "Amatic SC", size = 12))
+```
+
+![](presentation_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+
+---
+# Converting data to tensors
+
+Currently the largest sticking point in the R world for deep learning
+
+We like to think flat and tidy, tensors do not.
+
+
+```r
+directions &lt;- c('m_x','m_y','m_z')
+wide_data &lt;- data %&gt;% 
+  spread(direction, accel)
+  group_by(label, recording_id) %&gt;% 
+  do( data = as.matrix(.[directions]) )
+```
+
+One-hot encoding is even more messy at this point. 
+
+---
+# Building Keras model
+
+When building a deep learning model you need to ask yourself three things
+
+1. What architecture fits my problem/limitations best?
+2. How do I stack my layers?
+3. Couldn't KNN do this better?
+
+
+---
+
+# Architecture
+
+For sequential data there are two options, recurrent and convolutional. 
+
+Reccurent are fantastic for learning time dependent patterns but are slow
+
+Convolutional are great at recognizing patterns and are fast
+
+Since I don't have a ton of compute and accelerometer data is often pattern recognized I chose a CNN
+
+---
+# Model Structure
+
+This is where R shines in deep learning. 
+
+The pipe opperator turns the sequential API into a much more readable format than in python.
+
+
+```r
+model &lt;- keras_model_sequential()
+model %&gt;% 
+  layer_conv_1d(...) %&gt;%
+  layer_batch_normalization() %&gt;% 
+  layer_global_max_pooling_1d() %&gt;%
+  layer_dropout(0.4) %&gt;% 
+  layer_dense(num_classes, activation = 'softmax') 
+```
+
+
+---
+# Saving model for future use
+
+---
+class: center, middle
+
+# Modeling
+
+---
+class: center, middle
+
+# Final Shiny app
+
+---
+# Converted original app
+
+---
+# Wire in Keras
+
+Make sure to turn of GPU mode
+
+---
+# Testing it
+
+---
+# Making it look pretty
+
+---
+# Deploying it
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({

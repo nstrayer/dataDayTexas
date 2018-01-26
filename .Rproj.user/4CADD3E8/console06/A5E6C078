@@ -13,3 +13,60 @@ Initialized empty Git repository in /media/nick/ssd/dataDaysTexas/.git/
 ]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ ^Vgit remote add origin git@github.com:nstrayer/da taDayTexas.git[A]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ [K
 [K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgit remote add origin git@github.com:nstrayer/data DayTexas.git
 ]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ lgit "first bit of presentation is in"
+[master (root-commit) efa4bdb] first bit of presentation is in
+ 24 files changed, 585 insertions(+)
+ create mode 100644 .Rproj.user/4CADD3E8/console06/A5E6C078
+ create mode 100644 .Rproj.user/4CADD3E8/console06/A5E6C078.env
+ create mode 100644 .Rproj.user/4CADD3E8/console06/INDEX001
+ create mode 100644 .Rproj.user/4CADD3E8/pcs/files-pane.pper
+ create mode 100644 .Rproj.user/4CADD3E8/pcs/source-pane.pper
+ create mode 100644 .Rproj.user/4CADD3E8/pcs/windowlayoutstate.pper
+ create mode 100644 .Rproj.user/4CADD3E8/pcs/workbench-pane.pper
+ create mode 100644 .Rproj.user/4CADD3E8/persistent-state
+ create mode 100644 .Rproj.user/4CADD3E8/saved_source_markers
+ create mode 100644 .Rproj.user/4CADD3E8/sources/prop/95C3C8B0
+ create mode 100644 .Rproj.user/4CADD3E8/sources/prop/E2B5615
+ create mode 100644 .Rproj.user/4CADD3E8/sources/prop/INDEX
+ create mode 100644 .Rproj.user/4CADD3E8/sources/s-534a5643/83481F67
+ create mode 100644 .Rproj.user/4CADD3E8/sources/s-534a5643/83481F67-contents
+ create mode 100644 .Rproj.user/4CADD3E8/sources/s-534a5643/lock_file
+ create mode 100644 .Rproj.user/shared/notebooks/D8CC86AD-presentation/1/4CADD3E8534a5643/chunks.json
+ create mode 100644 .Rproj.user/shared/notebooks/D8CC86AD-presentation/1/s/chunks.json
+ create mode 100644 .Rproj.user/shared/notebooks/patch-chunk-names
+ create mode 100644 .Rproj.user/shared/notebooks/paths
+ create mode 100644 dataDaysTexas.Rproj
+ create mode 100644 libs/remark-css/example.css
+ create mode 100644 outline
+ create mode 100644 presentation.Rmd
+ create mode 100644 presentation.html
+Counting objects: 38, done.
+Delta compression using up to 8 threads.
+Compressing objects:   3% (1/29)   Compressing objects:   6% (2/29)   Compressing objects:  10% (3/29)   Compressing objects:  13% (4/29)   Compressing objects:  17% (5/29)   Compressing objects:  20% (6/29)   Compressing objects:  24% (7/29)   Compressing objects:  27% (8/29)   Compressing objects:  31% (9/29)   Compressing objects:  34% (10/29)   Compressing objects:  37% (11/29)   Compressing objects:  41% (12/29)   Compressing objects:  44% (13/29)   Compressing objects:  48% (14/29)   Compressing objects:  51% (15/29)   Compressing objects:  55% (16/29)   Compressing objects:  58% (17/29)   Compressing objects:  62% (18/29)   Compressing objects:  65% (19/29)   Compressing objects:  68% (20/29)   Compressing objects:  72% (21/29)   Compressing objects:  75% (22/29)   Compressing objects:  79% (23/29)   Compressing objects:  82% (24/29)   Compressing objects:  86% (25/29)   Compressing objects:  89% (26/29)   Compressing objects:  93% (27/29)   Compressing objects:  96% (28/29)   Compressing objects: 100% (29/29)   Compressing objects: 100% (29/29), done.
+Writing objects:   2% (1/38)   Writing objects:   5% (2/38)   Writing objects:   7% (3/38)   Writing objects:  10% (4/38)   Writing objects:  13% (5/38)   Writing objects:  15% (6/38)   Writing objects:  18% (7/38)   Writing objects:  21% (8/38)   Writing objects:  23% (9/38)   Writing objects:  26% (10/38)   Writing objects:  28% (11/38)   Writing objects:  31% (12/38)   Writing objects:  34% (13/38)   Writing objects:  36% (14/38)   Writing objects:  39% (15/38)   Writing objects:  42% (16/38)   Writing objects:  44% (17/38)   Writing objects:  47% (18/38)   Writing objects:  50% (19/38)   Writing objects:  52% (20/38)   Writing objects:  55% (21/38)   Writing objects:  57% (22/38)   Writing objects:  60% (23/38)   Writing objects:  63% (24/38)   Writing objects:  65% (25/38)   Writing objects:  68% (26/38)   Writing objects:  71% (27/38)   Writing objects:  73% (28/38)   Writing objects:  76% (29/38)   Writing objects:  78% (30/38)   Writing objects:  81% (31/38)   Writing objects:  84% (32/38)   Writing objects:  86% (33/38)   Writing objects:  89% (34/38)   Writing objects:  92% (35/38)   Writing objects:  94% (36/38)   Writing objects:  97% (37/38)   Writing objects: 100% (38/38)   Writing objects: 100% (38/38), 9.24 KiB | 0 bytes/s, done.
+Total 38 (delta 0), reused 0 (delta 0)
+To git@github.com:nstrayer/dataDayTexas.git
+ * [new branch]      master -> master
+]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ ls
+total 40K
+drwxr-xr-x  5 nick nick 4.0K Jan 26 09:40 [0m[01;34m.[0m
+drwx------ 17 nick nick 4.0K Jan 25 13:15 [01;34m..[0m
+-rw-r--r--  1 nick nick  205 Jan 25 13:42 dataDaysTexas.Rproj
+drwxr-xr-x  8 nick nick 4.0K Jan 25 14:07 [01;34m.git[0m
+drwxr-xr-x  3 nick nick 4.0K Jan 26 09:40 [01;34mlibs[0m
+-rw-r--r--  1 nick nick 2.0K Jan 24 17:23 outline
+-rw-r--r--  1 nick nick 4.7K Jan 26 09:40 presentation.html
+-rw-r--r--  1 nick nick 3.4K Jan 26 09:40 presentation.Rmd
+drwxr-xr-x  4 nick nick 4.0K Jan 24 16:46 [01;34m.Rproj.user[0m
+]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ cp ../shinyses[Krver/ca[K[Ksp[K[K
+apps/ logs/ 
+]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ cp ../shinyserver/apps/s
+shinysense/  spell_casts/ 
+]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ cp ../shinyserver/apps/s
+shinysense/  spell_casts/ 
+]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ cp ../shinyserver/apps/s[K[K//[Kspell_casts/da[K[K
+cast_spells/            .git/                   spell_data.csv
+clean_visualize_data.R  .gitignore              spell_guides.png
+fit_model.R             .Rproj.user/            
+gather_data/            spell_casts.Rproj       
+]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ cp ../shinyserver/apps/spell_casts/spell_data.csv  .
+]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ lgit "few more slides added"
