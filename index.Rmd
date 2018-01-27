@@ -7,8 +7,8 @@ output:
   xaringan::moon_reader:
     lib_dir: libs
     includes:
-      before_body: styles.html
-      after_body: movement_demo.html
+      before_body: templates/styles.html
+      after_body: templates/movement_demo.html
     nature:
       highlightStyle: github
       highlightLines: true
