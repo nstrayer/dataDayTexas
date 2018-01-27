@@ -471,3 +471,71 @@ drwxr-xr-x  4 nick nick 4.0K Jan 24 16:46 [01;34m.Rproj.user[0m
 drwxr-xr-x  2 nick nick 4.0K Jan 27 15:26 [01;34mtemplates[0m
 -rw-r--r--  1 nick nick 293K Jan 27 11:53 [01;35mvisualized_app.png[0m
 ]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ lgit "cleaned up the temp[K[K[K[Khtmp[Kl files into their own directory"
+[master 4ade5fb] cleaned up the html files into their own directory
+ 13 files changed, 119 insertions(+), 1180 deletions(-)
+ delete mode 100644 presentation.Rmd
+ delete mode 100644 presentation.html
+ delete mode 100644 presentation_files/figure-html/unnamed-chunk-10-1.png
+ delete mode 100644 presentation_files/figure-html/unnamed-chunk-3-1.png
+ delete mode 100644 presentation_files/figure-html/unnamed-chunk-4-1.png
+ delete mode 100644 presentation_files/figure-html/unnamed-chunk-5-1.png
+ delete mode 100644 presentation_files/figure-html/unnamed-chunk-6-1.png
+ delete mode 100644 presentation_files/figure-html/unnamed-chunk-7-1.png
+ delete mode 100644 presentation_files/figure-html/unnamed-chunk-8-1.png
+ rename movement_demo.html => templates/movement_demo.html (100%)
+ rename styles.html => templates/styles.html (100%)
+Counting objects: 8, done.
+Delta compression using up to 8 threads.
+Compressing objects:  12% (1/8)   Compressing objects:  25% (2/8)   Compressing objects:  37% (3/8)   Compressing objects:  50% (4/8)   Compressing objects:  62% (5/8)   Compressing objects:  75% (6/8)   Compressing objects:  87% (7/8)   Compressing objects: 100% (8/8)   Compressing objects: 100% (8/8), done.
+Writing objects:  12% (1/8)   Writing objects:  25% (2/8)   Writing objects:  37% (3/8)   Writing objects:  50% (4/8)   Writing objects:  62% (5/8)   Writing objects:  75% (6/8)   Writing objects:  87% (7/8)   Writing objects: 100% (8/8)   Writing objects: 100% (8/8), 1.70 KiB | 0 bytes/s, done.
+Total 8 (delta 4), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/4)   [Kremote: Resolving deltas:  25% (1/4)   [Kremote: Resolving deltas:  50% (2/4)   [Kremote: Resolving deltas:  75% (3/4)   [Kremote: Resolving deltas: 100% (4/4)   [Kremote: Resolving deltas: 100% (4/4), completed with 4 local objects.[K
+To git@github.com:nstrayer/dataDayTexas.git
+   65acf61..4ade5fb  master -> master
+]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ lsls
+No command 'lsls' found, did you mean:
+ Command 'fsls' from package 'python-fs' (universe)
+lsls: command not found
+]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ ls
+total 2.2M
+drwxr-xr-x  7 nick nick 4.0K Jan 27 16:05 [0m[01;34m.[0m
+drwx------ 17 nick nick 4.0K Jan 25 13:15 [01;34m..[0m
+-rw-r--r--  1 nick nick  205 Jan 27 08:38 dataDaysTexas.Rproj
+-rw-r--r--  1 nick nick 147K Jan 27 09:38 [01;35mgathering.png[0m
+drwxr-xr-x  8 nick nick 4.0K Jan 27 15:27 [01;34m.git[0m
+-rw-r--r--  1 nick nick   40 Jan 26 17:45 .gitignore
+drwxr-xr-x  3 nick nick 4.0K Jan 27 15:24 [01;34mindex_files[0m
+-rw-r--r--  1 nick nick  14K Jan 27 16:05 index.html
+-rw-r--r--  1 nick nick  11K Jan 27 16:05 index.Rmd
+drwxr-xr-x  3 nick nick 4.0K Jan 27 16:05 [01;34mlibs[0m
+-rw-r--r--  1 nick nick 2.1K Jan 27 14:40 [01;35mmodel_plot.svg[0m
+-rw-r--r--  1 nick nick 385K Jan 27 15:56 [01;35mmodelShape.svg[0m
+-rw-r--r--  1 nick nick 2.0K Jan 24 17:23 outline
+drwxr-xr-x  4 nick nick 4.0K Jan 24 16:46 [01;34m.Rproj.user[0m
+-rw-r--r--  1 nick nick 116K Jan 27 09:47 [01;35mshinysense.png[0m
+-rw-r--r--  1 nick nick  68K Jan 27 10:19 [01;35mshinysenseslim.png[0m
+-rw-r--r--  1 nick nick 1.1M Jan 26 09:43 spell_data.csv
+drwxr-xr-x  2 nick nick 4.0K Jan 27 15:55 [01;34mtemplates[0m
+-rw-r--r--  1 nick nick 293K Jan 27 11:53 [01;35mvisualized_app.png[0m
+]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ ls
+total 2.2M
+drwxr-xr-x  7 nick nick 4.0K Jan 27 16:05 [0m[01;34m.[0m
+drwx------ 17 nick nick 4.0K Jan 25 13:15 [01;34m..[0m
+-rw-r--r--  1 nick nick  205 Jan 27 08:38 dataDaysTexas.Rproj
+-rw-r--r--  1 nick nick 147K Jan 27 09:38 [01;35mgathering.png[0m
+drwxr-xr-x  8 nick nick 4.0K Jan 27 15:27 [01;34m.git[0m
+-rw-r--r--  1 nick nick   40 Jan 26 17:45 .gitignore
+drwxr-xr-x  3 nick nick 4.0K Jan 27 15:24 [01;34mindex_files[0m
+-rw-r--r--  1 nick nick  14K Jan 27 16:05 index.html
+-rw-r--r--  1 nick nick  11K Jan 27 16:05 index.Rmd
+drwxr-xr-x  3 nick nick 4.0K Jan 27 16:05 [01;34mlibs[0m
+-rw-r--r--  1 nick nick 2.1K Jan 27 14:40 [01;35mmodel_plot.svg[0m
+-rw-r--r--  1 nick nick 385K Jan 27 15:56 [01;35mmodelShape.svg[0m
+-rw-r--r--  1 nick nick 2.0K Jan 24 17:23 outline
+drwxr-xr-x  4 nick nick 4.0K Jan 24 16:46 [01;34m.Rproj.user[0m
+-rw-r--r--  1 nick nick 116K Jan 27 09:47 [01;35mshinysense.png[0m
+-rw-r--r--  1 nick nick  68K Jan 27 10:19 [01;35mshinysenseslim.png[0m
+-rw-r--r--  1 nick nick 1.1M Jan 26 09:43 spell_data.csv
+drwxr-xr-x  2 nick nick 4.0K Jan 27 15:55 [01;34mtemplates[0m
+-rw-r--r--  1 nick nick 293K Jan 27 11:53 [01;35mvisualized_app.png[0m
+]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ lgit "added about me"

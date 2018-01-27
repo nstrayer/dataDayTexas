@@ -19,9 +19,31 @@ output:
 options(htmltools.dir.version = FALSE)
 ```
 
+# Me
 
+.pull-left[
+- [@NicholasStrayer](https://twitter.com/NicholasStrayer)
+- [nickstrayer.me](http://nickstrayer.me/)
+- [LiveFreeOrDichotomize](http://livefreeordichotomize.com/)
+]
+.pull-right[
+- PhD Candidate in Biostatistics at Vanderbilt University
+- Previously: 
+  - Johns Hopkins Data Science Lab
+  - New York Times graphics department
+  - Data visualization "engineer"
+]
 
+# Slides
+
+.center[
+<p style = "font-size:34px">
+nickstrayer.me/dataDayTexas
+</p>
+]
+---
 class: middle
+
 
 # Outline
 
@@ -33,6 +55,7 @@ Three sections
 
 ... I did
 
+
 ---
 class: center, middle
 
@@ -40,14 +63,16 @@ class: center, middle
 
 ---
 class: middle
-# Made a shiny app for casting spells
+# Shiny app for casting spells
 
+.center[
+<img src = "http://digitalspyuk.cdnds.net/16/46/480x198/gallery-1479227655-tumblr-inline-n9laetes451qh7ojh.gif"/> <a href = "http://digitalspyuk.cdnds.net/16/46/480x198/gallery-1479227655-tumblr-inline-n9laetes451qh7ojh.gif">source</a>
+]
 
 > Any sufficiently advanced technology is indistinguishable from magic.
 
 - Arthur C. Clark
 
-Wave your phone around and 'cast' a spell.
 
 ---
 class: center, middle
@@ -57,7 +82,6 @@ _In which the rest of the talk is invalidated..._
 
 ---
 class: middle
-
 # Three main steps:
 
 1. Shiny app for gathering data
@@ -96,7 +120,7 @@ Many people like statisticians are given entire courses on how to set up things 
 
 # Shiny for presenting models
 
-This is the traditional way shiny is used, but there's a reason for that. It's great. 
+This is the traditional way shiny is used, and there's a reason for that: it's great. 
 
 .center[
 <img src = "model_plot.svg" height = 250/>
@@ -104,7 +128,7 @@ This is the traditional way shiny is used, but there's a reason for that. It's g
 
 Instead of having to get fancy with learning how to port tensorflow models to Swift or Java you can just throw a predict function inside of a simple app. 
 
-How well can this scale?
+_How well can this scale?_
 
 ---
 class: center, middle
@@ -112,10 +136,18 @@ class: center, middle
 # How?
 
 ---
-class: center, middle
+class: middle
 
 .pull-left[
 # Data gathering app
+
+We need to...
+
+- Gather data from accelerometer.
+- Visualize results so that I could make sure I wasn't recording bad data.
+- Save data somewhere I could use it.
+
+
 ]
 .pull-right[
 <img src = 'gathering.png' height = 550/>
@@ -141,17 +173,6 @@ class: middle
 [RStudio](https://shiny.rstudio.com/)
 ---
 class: middle
-
-# Requirement Analysis: 
-
-We need to...
-
-- Gather data from accelerometer
-- Save data somewhere I could use it
-- Visualize results so that I could make sure I wasn't recording bad data.
-
----
-class: middle
 #Gathering Data from accelerometer
 
 Used my package `shinysense`. 
@@ -163,7 +184,7 @@ Used my package `shinysense`.
 
 Contains functions to bring data into Shiny apps.
 
-One of these data sources happens to be an accelerometer data.
+One of these data sources happens to be accelerometer data.
 ---
 # Movr 
 
@@ -191,28 +212,11 @@ window.addEventListener("deviceorientation", handleMovementFunc);
 ```
 
 
-.center[
 <div class="garden">
-  <div class="ball">It's alive!</div>
+  <div class="ball"><img src = "http://hexb.in/vector/shiny.svg" height = 100/>
 </div>
-]
+</div>
 
-
----
-class: middle
-# Saving the data
-
-Two options: 
-1. Use shinyapps.io and do a dropbox or similar upload
-2. Just host the app from my own server
-    - This was easier.
-    - Better for other reasons I will get to later as well.
-    
-Luckily the RStudio Server makes this crazy easy.
-
-```{r,eval = FALSE}
-write_csv(rvs$movements, paste0(sessionId, '_movement.csv'))
-```
 
 
 ---
@@ -241,6 +245,24 @@ movement() %>%
 Added a delete button if bad data was detected.
 
 ---
+class: middle
+# Saving the data
+
+Two options: 
+1. Use shinyapps.io and do a dropbox or similar upload
+2. Just host the app from my own server
+    - This was easier.
+    - Better for other reasons I will get to later as well.
+    
+Luckily the RStudio Server makes this crazy easy.
+
+```{r,eval = FALSE}
+write_csv(rvs$movements, paste0(sessionId, '_movement.csv'))
+```
+
+
+---
+
 class: center, middle
 
 # Data exploration/ visualization
@@ -253,6 +275,7 @@ By saving all of the data to the hope repo as unique id `.csv`s all I have to do
 ```{r, eval = FALSE}
 # get the files in our directory
 all_files <- list.files('gather_data')
+
 # just get the csvs
 csv_names <- all_files[grepl('.csv', all_files)]
 
@@ -339,21 +362,22 @@ When building a deep learning model you need to ask yourself three things
 
 
 .pull-left[
-For sequential data there are two options, recurrent and convolutional. 
+For sequential data in deep learning there are two options, recurrent and convolutional. 
 
-Reccurent are fantastic for learning time dependent patterns but are slow
+Reccurent is fantastic for learning time dependent patterns but are slow.
 
-Convolutional are great at recognizing patterns and are fast
+Convolutional is great at recognizing patterns and are fast, but bad at time dependent patterns.
 
-Since I don't have a ton of compute and accelerometer data is often pattern recognized I chose a CNN
+Since I don't have a ton of compute and accelerometer data is often pattern recognized I chose a CNN.
 ]
 .pull-right[
-<img style='margin-top: -75px' src = "modelShape.svg" height = 500 />
+<img style='margin-top: -95px' src = "modelShape.svg" height = 550 />
 ]
 
 
 ---
 # R's Keras vs Python's
+
 
 This is where R shines in deep learning. 
 
@@ -419,6 +443,11 @@ model <- load_model_hdf5('model.h5')
 ]
 ]
 
+.center[
+<img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Now-and-Laters.jpg/1200px-Now-and-Laters.jpg" width = 25%/>
+]
+
+
 While you technically could do this with any model using `saveRds` it's nice to have it be a first-class citizen.
 
 ---
@@ -440,7 +469,7 @@ library(keras)
 Make sure to turn off GPU mode! You don't need the speed.
 
 ```{r, eval = FALSE}
-`use_session_with_seed(
+use_session_with_seed(
   42, 
   disable_gpu = TRUE, 
   disable_parallel_cpu = FALSE
@@ -463,7 +492,7 @@ _Need to test the app on a phone, but how to do that?_
 .pull-right[
 __Solution:__ 
 
-_Use ShinyServer hosted on your own computer. _
+_Use ShinyServer hosted on your own computer! _
 
 ]
 

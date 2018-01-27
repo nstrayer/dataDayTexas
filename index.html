@@ -18,17 +18,43 @@ class: center, middle, inverse, title-slide
 ---
 
 <style>
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
+@import url('https://fonts.googleapis.com/css?family=Lato:700|Montserrat');
+
 body {
-font-family: 'Playfair Display', serif;
+  font-family: 'Montserrat', sans-serif;
+}
+h1 {
+  font-family: 'Lato', sans-serif;
 }
 </style>
 
 
 
+# Me
 
+.pull-left[
+- [@NicholasStrayer](https://twitter.com/NicholasStrayer)
+- [nickstrayer.me](http://nickstrayer.me/)
+- [LiveFreeOrDichotomize](http://livefreeordichotomize.com/)
+]
+.pull-right[
+- PhD Candidate in Biostatistics at Vanderbilt University
+- Previously: 
+  - Johns Hopkins Data Science Lab
+  - New York Times graphics department
+  - Data visualization "engineer"
+]
 
+# Slides
+
+.center[
+&lt;p style = "font-size:34px"&gt;
+nickstrayer.me/dataDayTexas
+&lt;/p&gt;
+]
+---
 class: middle
+
 
 # Outline
 
@@ -40,6 +66,7 @@ Three sections
 
 ... I did
 
+
 ---
 class: center, middle
 
@@ -47,14 +74,16 @@ class: center, middle
 
 ---
 class: middle
-# Made a shiny app for casting spells
+# Shiny app for casting spells
 
+.center[
+&lt;img src = "http://digitalspyuk.cdnds.net/16/46/480x198/gallery-1479227655-tumblr-inline-n9laetes451qh7ojh.gif"/&gt; &lt;a href = "http://digitalspyuk.cdnds.net/16/46/480x198/gallery-1479227655-tumblr-inline-n9laetes451qh7ojh.gif"&gt;source&lt;/a&gt;
+]
 
 &gt; Any sufficiently advanced technology is indistinguishable from magic.
 
 - Arthur C. Clark
 
-Wave your phone around and 'cast' a spell.
 
 ---
 class: center, middle
@@ -64,7 +93,6 @@ _In which the rest of the talk is invalidated..._
 
 ---
 class: middle
-
 # Three main steps:
 
 1. Shiny app for gathering data
@@ -103,7 +131,7 @@ Many people like statisticians are given entire courses on how to set up things 
 
 # Shiny for presenting models
 
-This is the traditional way shiny is used, but there's a reason for that. It's great. 
+This is the traditional way shiny is used, and there's a reason for that: it's great. 
 
 .center[
 &lt;img src = "model_plot.svg" height = 250/&gt;
@@ -111,7 +139,7 @@ This is the traditional way shiny is used, but there's a reason for that. It's g
 
 Instead of having to get fancy with learning how to port tensorflow models to Swift or Java you can just throw a predict function inside of a simple app. 
 
-How well can this scale?
+_How well can this scale?_
 
 ---
 class: center, middle
@@ -119,10 +147,18 @@ class: center, middle
 # How?
 
 ---
-class: center, middle
+class: middle
 
 .pull-left[
 # Data gathering app
+
+We need to...
+
+- Gather data from accelerometer.
+- Visualize results so that I could make sure I wasn't recording bad data.
+- Save data somewhere I could use it.
+
+
 ]
 .pull-right[
 &lt;img src = 'gathering.png' height = 550/&gt;
@@ -148,17 +184,6 @@ class: middle
 [RStudio](https://shiny.rstudio.com/)
 ---
 class: middle
-
-# Requirement Analysis: 
-
-We need to...
-
-- Gather data from accelerometer
-- Save data somewhere I could use it
-- Visualize results so that I could make sure I wasn't recording bad data.
-
----
-class: middle
 #Gathering Data from accelerometer
 
 Used my package `shinysense`. 
@@ -170,7 +195,7 @@ Used my package `shinysense`.
 
 Contains functions to bring data into Shiny apps.
 
-One of these data sources happens to be an accelerometer data.
+One of these data sources happens to be accelerometer data.
 ---
 # Movr 
 
@@ -201,29 +226,11 @@ window.addEventListener("deviceorientation", handleMovementFunc);
 ```
 
 
-.center[
 &lt;div class="garden"&gt;
-  &lt;div class="ball"&gt;It's alive!&lt;/div&gt;
+  &lt;div class="ball"&gt;&lt;img src = "http://hexb.in/vector/shiny.svg" height = 100/&gt;
 &lt;/div&gt;
-]
+&lt;/div&gt;
 
-
----
-class: middle
-# Saving the data
-
-Two options: 
-1. Use shinyapps.io and do a dropbox or similar upload
-2. Just host the app from my own server
-    - This was easier.
-    - Better for other reasons I will get to later as well.
-    
-Luckily the RStudio Server makes this crazy easy.
-
-
-```r
-write_csv(rvs$movements, paste0(sessionId, '_movement.csv'))
-```
 
 
 ---
@@ -253,6 +260,25 @@ movement() %&gt;%
 Added a delete button if bad data was detected.
 
 ---
+class: middle
+# Saving the data
+
+Two options: 
+1. Use shinyapps.io and do a dropbox or similar upload
+2. Just host the app from my own server
+    - This was easier.
+    - Better for other reasons I will get to later as well.
+    
+Luckily the RStudio Server makes this crazy easy.
+
+
+```r
+write_csv(rvs$movements, paste0(sessionId, '_movement.csv'))
+```
+
+
+---
+
 class: center, middle
 
 # Data exploration/ visualization
@@ -266,6 +292,7 @@ By saving all of the data to the hope repo as unique id `.csv`s all I have to do
 ```r
 # get the files in our directory
 all_files &lt;- list.files('gather_data')
+
 # just get the csvs
 csv_names &lt;- all_files[grepl('.csv', all_files)]
 
@@ -352,21 +379,22 @@ When building a deep learning model you need to ask yourself three things
 
 
 .pull-left[
-For sequential data there are two options, recurrent and convolutional. 
+For sequential data in deep learning there are two options, recurrent and convolutional. 
 
-Reccurent are fantastic for learning time dependent patterns but are slow
+Reccurent is fantastic for learning time dependent patterns but are slow.
 
-Convolutional are great at recognizing patterns and are fast
+Convolutional is great at recognizing patterns and are fast, but bad at time dependent patterns.
 
-Since I don't have a ton of compute and accelerometer data is often pattern recognized I chose a CNN
+Since I don't have a ton of compute and accelerometer data is often pattern recognized I chose a CNN.
 ]
 .pull-right[
-&lt;img style='margin-top: -75px' src = "modelShape.svg" height = 500 /&gt;
+&lt;img style='margin-top: -95px' src = "modelShape.svg" height = 550 /&gt;
 ]
 
 
 ---
 # R's Keras vs Python's
+
 
 This is where R shines in deep learning. 
 
@@ -436,6 +464,11 @@ model &lt;- load_model_hdf5('model.h5')
 ]
 ]
 
+.center[
+&lt;img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Now-and-Laters.jpg/1200px-Now-and-Laters.jpg" width = 25%/&gt;
+]
+
+
 While you technically could do this with any model using `saveRds` it's nice to have it be a first-class citizen.
 
 ---
@@ -459,7 +492,7 @@ Make sure to turn off GPU mode! You don't need the speed.
 
 
 ```r
-`use_session_with_seed(
+use_session_with_seed(
   42, 
   disable_gpu = TRUE, 
   disable_parallel_cpu = FALSE
@@ -482,7 +515,7 @@ _Need to test the app on a phone, but how to do that?_
 .pull-right[
 __Solution:__ 
 
-_Use ShinyServer hosted on your own computer. _
+_Use ShinyServer hosted on your own computer! _
 
 ]
 
@@ -581,8 +614,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.
   left  : 300px;
   height: 65px;
   width: 65px;
-  border: 1px solid blue;
-  border-radius: 20px;
 }
 </style>
 
@@ -604,12 +635,12 @@ function handleOrientation(event) {
   const prop_of_width = gamma/90;
   const prop_of_height = beta/120;
 
-  const pixels_left = prop_of_width * (garden_width/2);
-  const pixels_up = prop_of_height * (garden_height/2);
+  const pixels_left = (prop_of_width * (garden_width/2)) ;
+  const pixels_up = (prop_of_height * (garden_height/2)) - (100/2);
   
   // 10 is half the size of the ball
   // It center the positioning point to the center of the ball
-  ball.style.top  = ((garden_height/4) + pixels_up) + "px";
+  ball.style.top  = ((garden_height/6) + pixels_up) + "px";
   ball.style.left = ((garden_width/2) + pixels_left) + "px";
 }
 

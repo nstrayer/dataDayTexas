@@ -14,8 +14,6 @@
   left  : 300px;
   height: 65px;
   width: 65px;
-  border: 1px solid blue;
-  border-radius: 20px;
 }
 </style>
 
@@ -37,12 +35,12 @@ function handleOrientation(event) {
   const prop_of_width = gamma/90;
   const prop_of_height = beta/120;
 
-  const pixels_left = prop_of_width * (garden_width/2);
-  const pixels_up = prop_of_height * (garden_height/2);
+  const pixels_left = (prop_of_width * (garden_width/2)) ;
+  const pixels_up = (prop_of_height * (garden_height/2)) - (100/2);
   
   // 10 is half the size of the ball
   // It center the positioning point to the center of the ball
-  ball.style.top  = ((garden_height/4) + pixels_up) + "px";
+  ball.style.top  = ((garden_height/6) + pixels_up) + "px";
   ball.style.left = ((garden_width/2) + pixels_left) + "px";
 }
 
