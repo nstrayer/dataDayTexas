@@ -305,3 +305,53 @@ drwxr-xr-x  4 nick nick 4.0K Jan 24 16:46 [01;34m.Rproj.user[0m
 -rw-r--r--  1 nick nick 1.1M Jan 26 09:43 spell_data.csv
 -rw-r--r--  1 nick nick 293K Jan 27 11:53 [01;35mvisualized_app.png[0m
 ]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ lgit "addd[Ked lots of slides"
+[master fb81564] added lots of slides
+ 28 files changed, 808 insertions(+), 96 deletions(-)
+ rewrite .Rproj.user/4CADD3E8/console06/INDEX001 (86%)
+ rewrite .Rproj.user/shared/notebooks/D8CC86AD-presentation/1/4CADD3E8534a5643/chunks.json (76%)
+ delete mode 100644 .Rproj.user/shared/notebooks/D8CC86AD-presentation/1/s/c47i840o8fdbj/000007.csv
+ delete mode 100644 .Rproj.user/shared/notebooks/D8CC86AD-presentation/1/s/c47i840o8fdbj/000008.metadata
+ delete mode 100644 .Rproj.user/shared/notebooks/D8CC86AD-presentation/1/s/c47i840o8fdbj/000008.png
+ rewrite .Rproj.user/shared/notebooks/D8CC86AD-presentation/1/s/chunks.json (76%)
+ create mode 100644 gathering.png
+ create mode 100644 movement_demo.html
+ create mode 100644 presentation_files/figure-html/unnamed-chunk-4-1.png
+ create mode 100644 presentation_files/figure-html/unnamed-chunk-5-1.png
+ create mode 100644 presentation_files/figure-html/unnamed-chunk-6-1.png
+ create mode 100644 presentation_files/figure-html/unnamed-chunk-7-1.png
+ create mode 100644 presentation_files/figure-html/unnamed-chunk-8-1.png
+ create mode 100644 shinysense.png
+ create mode 100644 shinysenseslim.png
+ create mode 100644 visualized_app.png
+Counting objects: 36, done.
+Delta compression using up to 8 threads.
+Compressing objects:   3% (1/31)   Compressing objects:   6% (2/31)   Compressing objects:   9% (3/31)   Compressing objects:  12% (4/31)   Compressing objects:  16% (5/31)   Compressing objects:  19% (6/31)   Compressing objects:  22% (7/31)   Compressing objects:  25% (8/31)   Compressing objects:  29% (9/31)   Compressing objects:  32% (10/31)   Compressing objects:  35% (11/31)   Compressing objects:  38% (12/31)   Compressing objects:  41% (13/31)   Compressing objects:  45% (14/31)   Compressing objects:  48% (15/31)   Compressing objects:  51% (16/31)   Compressing objects:  54% (17/31)   Compressing objects:  58% (18/31)   Compressing objects:  61% (19/31)   Compressing objects:  64% (20/31)   Compressing objects:  67% (21/31)   Compressing objects:  70% (22/31)   Compressing objects:  74% (23/31)   Compressing objects:  77% (24/31)   Compressing objects:  80% (25/31)   Compressing objects:  83% (26/31)   Compressing objects:  87% (27/31)   Compressing objects:  90% (28/31)   Compressing objects:  93% (29/31)   Compressing objects:  96% (30/31)   Compressing objects: 100% (31/31)   Compressing objects: 100% (31/31), done.
+Writing objects:   2% (1/36)   Writing objects:   5% (2/36)   Writing objects:   8% (3/36)   Writing objects:  11% (4/36)   Writing objects:  13% (5/36)   Writing objects:  16% (6/36)   Writing objects:  19% (7/36)   Writing objects:  22% (8/36)   Writing objects:  25% (9/36)   Writing objects:  27% (10/36)   Writing objects:  30% (11/36)   Writing objects:  33% (12/36)   Writing objects:  36% (13/36)   Writing objects:  38% (14/36)   Writing objects:  41% (15/36)   Writing objects:  44% (16/36)   Writing objects:  47% (17/36)   Writing objects:  50% (18/36)   Writing objects:  52% (19/36)   Writing objects:  55% (20/36)   Writing objects:  58% (21/36)   Writing objects:  61% (22/36)   Writing objects:  63% (23/36)   Writing objects:  66% (24/36)   Writing objects:  69% (25/36)   Writing objects:  72% (26/36)   Writing objects:  75% (27/36)   Writing objects:  77% (28/36)   Writing objects:  83% (30/36)   Writing objects:  86% (31/36)   Writing objects:  88% (32/36)   Writing objects:  91% (33/36)   Writing objects:  94% (34/36)   Writing objects:  97% (35/36)   Writing objects: 100% (36/36)   Writing objects: 100% (36/36), 679.77 KiB | 0 bytes/s, done.
+Total 36 (delta 13), reused 0 (delta 0)
+remote: Resolving deltas:   0% (0/13)   [Kremote: Resolving deltas:   7% (1/13)   [Kremote: Resolving deltas:  15% (2/13)   [Kremote: Resolving deltas:  23% (3/13)   [Kremote: Resolving deltas:  30% (4/13)   [Kremote: Resolving deltas:  38% (5/13)   [Kremote: Resolving deltas:  46% (6/13)   [Kremote: Resolving deltas:  53% (7/13)   [Kremote: Resolving deltas:  61% (8/13)   [Kremote: Resolving deltas:  84% (11/13)   [Kremote: Resolving deltas:  92% (12/13)   [Kremote: Resolving deltas: 100% (13/13)   [Kremote: Resolving deltas: 100% (13/13), completed with 11 local objects.[K
+To git@github.com:nstrayer/dataDayTexas.git
+   537af47..fb81564  master -> master
+]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ ls
+total 2.2M
+drwxr-xr-x  6 nick nick 4.0K Jan 27 14:46 [0m[01;34m.[0m
+drwx------ 17 nick nick 4.0K Jan 25 13:15 [01;34m..[0m
+-rw-r--r--  1 nick nick  205 Jan 27 08:38 dataDaysTexas.Rproj
+-rw-r--r--  1 nick nick 147K Jan 27 09:38 [01;35mgathering.png[0m
+drwxr-xr-x  8 nick nick 4.0K Jan 27 14:46 [01;34m.git[0m
+-rw-r--r--  1 nick nick   40 Jan 26 17:45 .gitignore
+drwxr-xr-x  3 nick nick 4.0K Jan 27 14:46 [01;34mlibs[0m
+-rw-r--r--  1 nick nick 2.1K Jan 27 14:40 [01;35mmodel_plot.svg[0m
+-rw-r--r--  1 nick nick 385K Jan 27 14:03 [01;35mmodelShape.svg[0m
+-rw-r--r--  1 nick nick 1.3K Jan 27 11:39 movement_demo.html
+-rw-r--r--  1 nick nick 2.0K Jan 24 17:23 outline
+drwxr-xr-x  3 nick nick 4.0K Jan 26 09:44 [01;34mpresentation_files[0m
+-rw-r--r--  1 nick nick  13K Jan 27 14:46 presentation.html
+-rw-r--r--  1 nick nick 9.9K Jan 27 14:45 presentation.Rmd
+drwxr-xr-x  4 nick nick 4.0K Jan 24 16:46 [01;34m.Rproj.user[0m
+-rw-r--r--  1 nick nick 116K Jan 27 09:47 [01;35mshinysense.png[0m
+-rw-r--r--  1 nick nick  68K Jan 27 10:19 [01;35mshinysenseslim.png[0m
+-rw-r--r--  1 nick nick 1.1M Jan 26 09:43 spell_data.csv
+-rw-r--r--  1 nick nick  139 Jan 27 14:46 styles.html
+-rw-r--r--  1 nick nick 293K Jan 27 11:53 [01;35mvisualized_app.png[0m
+]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ cp presentation.Rmd inde.[Kx.Rmd
+]0;/media/nick/ssd/dataDaysTexas]0;nick@compooper: /media/nick/ssd/dataDaysTexas[01;32mnick@compooper[00m:[01;34m/media/nick/ssd/dataDaysTexas[00m$ lgit "switched to index instead o fp[K[K[Kf presentation for hosting purpo ses"
