@@ -20,6 +20,8 @@ class: center, middle, inverse, title-slide
 
 
 
+
+
 class: middle
 
 # Outline
@@ -42,6 +44,7 @@ class: center, middle
 # Made a shiny app for casting spells
 
 ---
+class: middle
 
 # Three main steps:
 
@@ -90,19 +93,36 @@ class: center, middle
 ---
 class: center, middle
 
+.pull-left[
 # Data gathering app
-
+]
+.pull-right[
+&lt;img src = 'gathering.png' height = 550/&gt;
+]
 
 ---
+class: middle
 
 # Shiny
 
+.pull-left[
+
 &gt; Shiny is an R package that makes it easy to build interactive web apps straight from R.
+
+]
+.pull-right[
+
+&lt;img src = "http://hexb.in/vector/shiny.svg" height = 300/&gt;
+
+]
+
 
 [RStudio](https://shiny.rstudio.com/)
 ---
 
-# App needs
+# Requirement Analysis: 
+
+We need to...
 
 - Gather data from accelerometer
 - Save data somewhere I could use it
@@ -114,11 +134,53 @@ class: center, middle
 
 Used my package `shinysense`. 
 
+.center[
+&lt;img src = 'shinysenseslim.png' height = 100 /&gt;
+]
+
+
+Contains functions to bring data into Shiny apps.
+
+One of these data sources happens to be an accelerometer data.
+---
+# Movr 
+
+
+.pull-left[
+__ui.R__
+
+```r
+shinymovrUI("movr_button")
+```
+]
+.pull-right[
+__server.R__
+
+```r
+movement &lt;- callModule(
+  shinymovr, 
+  "movr_button")
+```
+]
+
+
 Binds to the `devicemotion` api in javascript to pull in motion data.
 
-Needs to be noramlized for different devices.
+
+```js
+window.addEventListener("deviceorientation", handleMovementFunc);
+```
+
+
+.center[
+&lt;div class="garden"&gt;
+  &lt;div class="ball"&gt;It's alive!&lt;/div&gt;
+&lt;/div&gt;
+]
+
 
 ---
+class: middle
 # Saving the data
 
 Two options: 
@@ -129,19 +191,42 @@ Two options:
     
 Luckily the RStudio Server makes this crazy easy.
 
+
+```r
+write_csv(rvs$movements, paste0(sessionId, '_movement.csv'))
+```
+
+
 ---
 # Visualizing data 
 
 Not that hard as `shinysense::movr` returns an observable that can be used like any other shiny object.
 
-Just used ggplot2 to visualize raw data faceting by recording.
+.pull-left[
+
+```r
+movement() %&gt;% 
+  ggplot(aes(
+    x = time, 
+    y = accel
+  )) +
+  geom_line(aes(
+    color = direction
+  )) + ...
+```
+
+]
+
+.pull-right[
+&lt;img src = 'visualized_app.png' height = 300/&gt;
+]
 
 Added a delete button if bad data was detected.
 
 ---
 class: center, middle
 
-# Data exploration/ Visualization
+# Data exploration/ visualization
 
 ---
 # Getting data all in
@@ -150,7 +235,9 @@ By saving all of the data to the hope repo as unique id `.csv`s all I have to do
 
 
 ```r
+# get the files in our directory
 all_files &lt;- list.files('gather_data')
+# just get the csvs
 csv_names &lt;- all_files[grepl('.csv', all_files)]
 
 # load all data into a dataframe
@@ -158,6 +245,7 @@ data &lt;- csv_names %&gt;%
   map_df(read_csv)
 ```
 
+By far the best thing about this whole project.
 
 ---
 # Visualizing all data for trends
@@ -166,30 +254,45 @@ data &lt;- csv_names %&gt;%
 
 
 ```r
-ggplot(data, aes(x = time, y = accel, color = direction, group = recording_id)) +
-  geom_line(alpha = 0.15) +
+ggplot(data, aes(x = time, y = accel, group = recording_id)) +
+  geom_line(aes(color = direction), alpha = 0.15) + 
   facet_wrap(~label) +
-  theme_void() +
-  guides(color = FALSE) +
-  theme(strip.text = element_text(family = "Amatic SC", size = 12))
+  theme_void() + guides(color = FALSE) +
+  theme(strip.text = element_text(family = "Amatic SC", size = 18))
 ```
 
-![](presentation_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+![](presentation_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
 
 
 ---
+class: center, middle
+
+# Modeling
+
+---
+
 # Converting data to tensors
 
-Currently the largest sticking point in the R world for deep learning
+.pull-left[
+Currently the largest sticking point in the R world for deep learning. (_opinion_)
 
-We like to think flat and tidy, tensors do not.
+We (R users) like to think flat and tidy, tensors do not.
+]
+.pull-right[
+&lt;img src = 'http://www.sunlab.org/teaching/cse6250/fall2017/lab/image/DL/tensor.png' height = 220/&gt;
+]
+
 
 
 ```r
 directions &lt;- c('m_x','m_y','m_z')
 wide_data &lt;- data %&gt;% 
-  spread(direction, accel)
+  # take data and make it wide. Et tu brutus?
+  spread(direction, accel) %&gt;% 
+  # group into each individual spell cast
   group_by(label, recording_id) %&gt;% 
+  # convert each grouping into a list with a matrix inside.
   do( data = as.matrix(.[directions]) )
 ```
 
@@ -223,8 +326,8 @@ Since I don't have a ton of compute and accelerometer data is often pattern reco
 A stack of a single convolutional layer with batch norm, max-pooling then lots of dropout.
 
 Started simple and... didn't need to scale up.
----
 
+---
 # R's Keras vs Python's
 
 This is where R shines in deep learning. 
@@ -263,41 +366,130 @@ model.add(dense(
 ```
 ]
 
-
-
 ---
 # Saving model for future use
 
+&lt;style&gt;
+.small_code {
+  font-size: 0.85em;
+}
+&lt;/style&gt;
+
 You can dump the keras model as its own file to be loaded up and instantly used later. 
+
+.pull-left[
+__Now__
+.small_code[
+
+```r
+model %&gt;% 
+  save_model_hdf5('model.h5')
+```
+]
+
+]
+.pull-right[
+__Later__
+.small_code[
+
+```r
+model &lt;- load_model_hdf5('model.h5')
+```
+]
+]
 
 While you technically could do this with any model using `saveRds` it's nice to have it be a first-class citizen.
 
 ---
-class: center, middle
 
-# Modeling
-
----
 class: center, middle
 
 # Final Shiny app
 
 ---
-# Converted original app
-
----
 # Wire in Keras
 
-Make sure to turn of GPU mode
+Make sure to turn off GPU mode!
+
+
+```r
+keras::use_session_with_seed(
+  42, 
+  disable_gpu = TRUE, 
+  disable_parallel_cpu = FALSE
+)
+```
+
+
+If running on a server that you use to train this can cause fun crashes due to memory access permissions.
 
 ---
 # Testing it
 
+__Problem:__ Need to test the app on a phone, but how to do that?
+
+__Solution:__ Use ShinyServer hosted on your own server. 
+
+By hosting your own server this process is way faster.
+
+Simply save your app's files and refresh your page and it's updated!
+
+Massively speeds up the iteration process.
+
 ---
 # Making it look pretty
 
+_The most important part_
+
+It's very easy to add some CSS to your app.
+
+
+```r
+tags$style(HTML("
+@import url('//fonts.googleapis.com/css?family=Amatic+SC|Josefin+Slab');
+h2, h3, button {
+  font-family: 'Amatic SC', cursive;
+}
+h2 {
+  font-size: 50px;
+}
+p {
+  font-family: 'Josefin Slab', cursive;
+  font-size: 18px;
+}
+button {
+  font-size: 28px;
+}"))
+```
+
+
 ---
 # Deploying it
+
+Do we want to kill our server? 
+
+.pull-left[
+__Yes__
+
+Leave it on personal server.
+]
+.pull-right[
+__No__
+
+Send it to shinyapps.io
+]
+
+[jhubiostatistics.shinyapps.io/cast_spells/](https://jhubiostatistics.shinyapps.io/cast_spells/)
+
+---
+# Thanks To
+
+- [Johns Hopkins Data Science Lab](http://jhudatascience.org/)
+  - Support in developing `shinysense` and all the hosting time
+- [Lynn Bender](https://www.linkedin.com/in/lynnbender/)
+  - For organizing this conference
+- [RStudio](https://www.rstudio.com/)
+  - For all the amazing packages that they put out.
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
@@ -307,6 +499,56 @@ Make sure to turn of GPU mode
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});
 (function() {var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler"); if (!r) return; s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }"; d.head.appendChild(s);})();</script>
+<style>
+.garden {
+  position: relative;
+  width : 600px;
+  height: 200px;
+  border: 5px solid #CCC;
+  border-radius: 10px;
+}
+
+.ball {
+  position: absolute;
+  text-align:center;
+  top   : 90px;
+  left  : 300px;
+  height: 65px;
+  width: 65px;
+  border: 1px solid blue;
+  border-radius: 20px;
+}
+</style>
+
+<script>
+var ball   = document.querySelector('.ball');
+var garden = document.querySelector('.garden');
+
+var maxX = garden.clientWidth  - ball.clientWidth;
+var maxY = garden.clientHeight - ball.clientHeight;
+
+function handleOrientation(event) {
+  const garden_width = 600;
+  const garden_height = 200;
+
+  var beta = event.beta;  // In degree in the range [-180,180]
+  var gamma = event.gamma; // In degree in the range [-90,90]
+
+  // -1 if -180, 1 if 180
+  const prop_of_width = gamma/90;
+  const prop_of_height = beta/120;
+
+  const pixels_left = prop_of_width * (garden_width/2);
+  const pixels_up = prop_of_height * (garden_height/2);
+  
+  // 10 is half the size of the ball
+  // It center the positioning point to the center of the ball
+  ball.style.top  = ((garden_height/4) + pixels_up) + "px";
+  ball.style.left = ((garden_width/2) + pixels_left) + "px";
+}
+
+window.addEventListener('deviceorientation', handleOrientation);
+</script>
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({

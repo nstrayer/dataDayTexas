@@ -6,6 +6,8 @@ date: "2018/01/22"
 output:
   xaringan::moon_reader:
     lib_dir: libs
+    includes:
+      after_body: movement_demo.html
     nature:
       highlightStyle: github
       highlightLines: true
@@ -15,6 +17,8 @@ output:
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
 ```
+
+
 
 class: middle
 
@@ -38,6 +42,7 @@ class: center, middle
 # Made a shiny app for casting spells
 
 ---
+class: middle
 
 # Three main steps:
 
@@ -86,19 +91,36 @@ class: center, middle
 ---
 class: center, middle
 
+.pull-left[
 # Data gathering app
-
+]
+.pull-right[
+<img src = 'gathering.png' height = 550/>
+]
 
 ---
+class: middle
 
 # Shiny
 
+.pull-left[
+
 > Shiny is an R package that makes it easy to build interactive web apps straight from R.
+
+]
+.pull-right[
+
+<img src = "http://hexb.in/vector/shiny.svg" height = 300/>
+
+]
+
 
 [RStudio](https://shiny.rstudio.com/)
 ---
 
-# App needs
+# Requirement Analysis: 
+
+We need to...
 
 - Gather data from accelerometer
 - Save data somewhere I could use it
@@ -110,11 +132,50 @@ class: center, middle
 
 Used my package `shinysense`. 
 
+.center[
+<img src = 'shinysenseslim.png' height = 100 />
+]
+
+
+Contains functions to bring data into Shiny apps.
+
+One of these data sources happens to be an accelerometer data.
+---
+# Movr 
+
+
+.pull-left[
+__ui.R__
+```{r, eval = FALSE}
+shinymovrUI("movr_button")
+```
+]
+.pull-right[
+__server.R__
+```{r, eval = FALSE}
+movement <- callModule(
+  shinymovr, 
+  "movr_button")
+```
+]
+
+
 Binds to the `devicemotion` api in javascript to pull in motion data.
 
-Needs to be noramlized for different devices.
+```{js, eval = FALSE}
+window.addEventListener("deviceorientation", handleMovementFunc);
+```
+
+
+.center[
+<div class="garden">
+  <div class="ball">It's alive!</div>
+</div>
+]
+
 
 ---
+class: middle
 # Saving the data
 
 Two options: 
@@ -125,19 +186,40 @@ Two options:
     
 Luckily the RStudio Server makes this crazy easy.
 
+```{r,eval = FALSE}
+write_csv(rvs$movements, paste0(sessionId, '_movement.csv'))
+```
+
+
 ---
 # Visualizing data 
 
 Not that hard as `shinysense::movr` returns an observable that can be used like any other shiny object.
 
-Just used ggplot2 to visualize raw data faceting by recording.
+.pull-left[
+```{r, eval = FALSE}
+movement() %>% 
+  ggplot(aes(
+    x = time, 
+    y = accel
+  )) +
+  geom_line(aes(
+    color = direction
+  )) + ...
+```
+
+]
+
+.pull-right[
+<img src = 'visualized_app.png' height = 300/>
+]
 
 Added a delete button if bad data was detected.
 
 ---
 class: center, middle
 
-# Data exploration/ Visualization
+# Data exploration/ visualization
 
 ---
 # Getting data all in
@@ -145,7 +227,9 @@ class: center, middle
 By saving all of the data to the hope repo as unique id `.csv`s all I have to do is read them in with a single `purrr` line. 
 
 ```{r, eval = FALSE}
+# get the files in our directory
 all_files <- list.files('gather_data')
+# just get the csvs
 csv_names <- all_files[grepl('.csv', all_files)]
 
 # load all data into a dataframe
@@ -153,37 +237,54 @@ data <- csv_names %>%
   map_df(read_csv)
 ```
 
+By far the best thing about this whole project.
 
 ---
 # Visualizing all data for trends
 
 ```{r, include = FALSE}
 library(tidyverse)
-data <- read_csv('spell_data.csv')
+data <- read_csv('spell_data.csv') %>% 
+  filter(label != 'Expeliarmus')
 ```
 
 ```{r, fig.width = 10, fig.height = 5}
-ggplot(data, aes(x = time, y = accel, color = direction, group = recording_id)) +
-  geom_line(alpha = 0.15) +
+ggplot(data, aes(x = time, y = accel, group = recording_id)) +
+  geom_line(aes(color = direction), alpha = 0.15) + 
   facet_wrap(~label) +
-  theme_void() +
-  guides(color = FALSE) +
-  theme(strip.text = element_text(family = "Amatic SC", size = 12))
+  theme_void() + guides(color = FALSE) +
+  theme(strip.text = element_text(family = "Amatic SC", size = 18))
 ```
 
 
+
 ---
+class: center, middle
+
+# Modeling
+
+---
+
 # Converting data to tensors
 
-Currently the largest sticking point in the R world for deep learning
+.pull-left[
+Currently the largest sticking point in the R world for deep learning. (_opinion_)
 
-We like to think flat and tidy, tensors do not.
+We (R users) like to think flat and tidy, tensors do not.
+]
+.pull-right[
+<img src = 'http://www.sunlab.org/teaching/cse6250/fall2017/lab/image/DL/tensor.png' height = 220/>
+]
+
 
 ```{r, eval = FALSE}
 directions <- c('m_x','m_y','m_z')
 wide_data <- data %>% 
-  spread(direction, accel)
+  # take data and make it wide. Et tu brutus?
+  spread(direction, accel) %>% 
+  # group into each individual spell cast
   group_by(label, recording_id) %>% 
+  # convert each grouping into a list with a matrix inside.
   do( data = as.matrix(.[directions]) )
 ```
 
@@ -217,8 +318,8 @@ Since I don't have a ton of compute and accelerometer data is often pattern reco
 A stack of a single convolutional layer with batch norm, max-pooling then lots of dropout.
 
 Started simple and... didn't need to scale up.
----
 
+---
 # R's Keras vs Python's
 
 This is where R shines in deep learning. 
@@ -255,39 +356,124 @@ model.add(dense(
 ```
 ]
 
-
-
 ---
 # Saving model for future use
 
+<style>
+.small_code {
+  font-size: 0.85em;
+}
+</style>
+
 You can dump the keras model as its own file to be loaded up and instantly used later. 
+
+.pull-left[
+__Now__
+.small_code[
+```{r, eval = FALSE}
+model %>% 
+  save_model_hdf5('model.h5')
+```
+]
+
+]
+.pull-right[
+__Later__
+.small_code[
+```{r, eval = FALSE}
+model <- load_model_hdf5('model.h5')
+```
+]
+]
 
 While you technically could do this with any model using `saveRds` it's nice to have it be a first-class citizen.
 
 ---
-class: center, middle
 
-# Modeling
-
----
 class: center, middle
 
 # Final Shiny app
 
 ---
-# Converted original app
-
----
 # Wire in Keras
 
-Make sure to turn of GPU mode
+Make sure to turn off GPU mode!
+
+```{r, eval = FALSE}
+keras::use_session_with_seed(
+  42, 
+  disable_gpu = TRUE, 
+  disable_parallel_cpu = FALSE
+)
+```
+
+
+If running on a server that you use to train this can cause fun crashes due to memory access permissions.
 
 ---
 # Testing it
 
+__Problem:__ Need to test the app on a phone, but how to do that?
+
+__Solution:__ Use ShinyServer hosted on your own server. 
+
+By hosting your own server this process is way faster.
+
+Simply save your app's files and refresh your page and it's updated!
+
+Massively speeds up the iteration process.
+
 ---
 # Making it look pretty
+
+_The most important part_
+
+It's very easy to add some CSS to your app.
+
+```{r, eval = FALSE}
+tags$style(HTML("
+@import url('//fonts.googleapis.com/css?family=Amatic+SC|Josefin+Slab');
+h2, h3, button {
+  font-family: 'Amatic SC', cursive;
+}
+h2 {
+  font-size: 50px;
+}
+p {
+  font-family: 'Josefin Slab', cursive;
+  font-size: 18px;
+}
+button {
+  font-size: 28px;
+}"))
+```
+
 
 ---
 # Deploying it
 
+Do we want to kill our server? 
+
+.pull-left[
+__Yes__
+
+Leave it on personal server.
+]
+.pull-right[
+__No__
+
+Send it to shinyapps.io
+]
+
+[jhubiostatistics.shinyapps.io/cast_spells/](https://jhubiostatistics.shinyapps.io/cast_spells/)
+
+---
+# Thanks To
+
+- [Johns Hopkins Data Science Lab](http://jhudatascience.org/)
+  - Support in developing `shinysense` and all the hosting time
+- [Lynn Bender](https://www.linkedin.com/in/lynnbender/)
+  - For organizing this conference
+- [RStudio](https://www.rstudio.com/)
+  - For all the amazing packages that they put out.
+  
