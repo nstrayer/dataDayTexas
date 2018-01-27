@@ -117,7 +117,7 @@ Traditionally shiny has been used to show off results afterwards, but that's mis
 
 # Shiny for gathering data
 
-Who is better at knowing how they need data than the ones who are going to be using it?
+Who is better at knowing what they want their data to look like more than the ones who are going to be using it?
 
 .center[
 &lt;img src = "http://www.michaelbunker.com/wp-content/uploads/sites/9/2015/06/wheat8.jpg"/ height = 250&gt;
@@ -125,7 +125,7 @@ Who is better at knowing how they need data than the ones who are going to be us
 ]
 
 
-Many people like statisticians are given entire courses on how to set up things like clinical trials, but datascience doesn't always work like that.
+Many people like statisticians are given entire courses on how to set up things like clinical trials, but datascience often assumes the data has magically appeared.
 
 ---
 
@@ -184,7 +184,7 @@ class: middle
 [RStudio](https://shiny.rstudio.com/)
 ---
 class: middle
-#Gathering Data from accelerometer
+#Gathering data from accelerometer
 
 Used my package `shinysense`. 
 
@@ -286,7 +286,7 @@ class: center, middle
 ---
 # Getting data all in
 
-By saving all of the data to the hope repo as unique id `.csv`s all I have to do is read them in with a single `purrr` line. 
+By saving all of the data to the home repo as unique id'd `.csv`s all I have to do is read them in with a single `purrr` line. 
 
 
 ```r
@@ -469,7 +469,7 @@ model &lt;- load_model_hdf5('model.h5')
 ]
 
 
-While you technically could do this with any model using `saveRds` it's nice to have it be a first-class citizen.
+While you technically could do this with any model using `saveRds`, it's nice to have it be a first-class citizen.
 
 ---
 
@@ -552,7 +552,15 @@ button {
 }"))
 ```
 
-
+---
+.pull-left[
+__Before__
+  &lt;img src = 'ugly_final.png' width = 300px/&gt;
+]
+.pull-right[
+__After__
+  &lt;img src = 'pretty_final.png' width = 300px/&gt;
+]
 ---
 class:middle
 # Deploying it
