@@ -125,6 +125,7 @@ Two options:
 1. Use shinyapps.io and do a dropbox or similar upload
 2. Just host the app from my own server
     - This was easier.
+    - Better for other reasons I will get to later as well.
     
 Luckily the RStudio Server makes this crazy easy.
 
@@ -219,10 +220,19 @@ Since I don't have a ton of compute and accelerometer data is often pattern reco
 ---
 # Model Structure
 
+A stack of a single convolutional layer with batch norm, max-pooling then lots of dropout.
+
+Started simple and... didn't need to scale up.
+---
+
+# R's Keras vs Python's
+
 This is where R shines in deep learning. 
 
-The pipe opperator turns the sequential API into a much more readable format than in python.
+The pipe operator turns the sequential API into a much more readable format than in python.
 
+.pull-left[
+__R__
 
 ```r
 model &lt;- keras_model_sequential()
@@ -231,12 +241,36 @@ model %&gt;%
   layer_batch_normalization() %&gt;% 
   layer_global_max_pooling_1d() %&gt;%
   layer_dropout(0.4) %&gt;% 
-  layer_dense(num_classes, activation = 'softmax') 
+  layer_dense(
+    num_classes, 
+    activation = 'softmax'
+  ) 
 ```
+]
+.pull-right[
+__Python__
+
+```python
+model = Sequential()
+model.add(conv_1d(...))
+model.add(batch_normalization)
+model.add(global_max_pooling_1d)
+model.add(dropout(0.4))
+model.add(dense(
+  num_classes,
+  activation = 'softmax'
+))
+```
+]
+
 
 
 ---
 # Saving model for future use
+
+You can dump the keras model as its own file to be loaded up and instantly used later. 
+
+While you technically could do this with any model using `saveRds` it's nice to have it be a first-class citizen.
 
 ---
 class: center, middle
